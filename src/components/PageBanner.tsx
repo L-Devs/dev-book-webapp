@@ -18,7 +18,7 @@ const PageBanner = ({ alternate }: Props) => {
 				bgColor + " w-1/2 flex justify-center min-h-screen items-center"
 			}
 		>
-			<div className={textColor + " ml-[72px] font-extrabold text-6xl text-left leading-normal"}>
+			<div className={textColor + " ml-[72px] font-extrabold text-7xl text-left leading-normal"}>
 				<span>
 					Share your Interests, <br></br>Stay
 				</span>
