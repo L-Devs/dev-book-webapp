@@ -15,7 +15,7 @@ const DevButton:React.FC<Props> = ({className, type, ...props}) => {
 							? "text-accent-200"
 							: type == "text-secondary"
 								? "text-dark-200 dark:text-light-200"
-								: " " + className}`}>
+								: " "} + ${className}`}>
 			{props.children}
 		</button>
 	);

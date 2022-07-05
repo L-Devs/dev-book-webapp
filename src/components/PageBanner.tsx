@@ -18,14 +18,14 @@ const PageBanner = ({ alternate }: Props) => {
 				bgColor + " w-1/2 flex justify-center min-h-screen items-center"
 			}
 		>
-			<h1 className={textColor + " ml-[72px] font-extrabold text-7xl text-left leading-normal"}>
+			<div className={textColor + " ml-[72px] font-extrabold text-6xl text-left leading-normal"}>
 				<span>
 					Share your Interests, <br></br>Stay
 				</span>
 				<span className="w-[477px] bg-dark-200 h-[155px] mt-3 text-center flex items-center justify-center -rotate-[5.2deg] text-light-100">
 					Connected
 				</span>
-			</h1>
+			</div>
 		</div>
 	);
 };
