@@ -1,15 +1,11 @@
-import React, { FunctionComponent } from "react";
-
 interface Props extends React.HTMLProps<HTMLButtonElement> {
-	text: string;
 	type: "accent" | "secondary" | "text-accent" | "text-secondary";
-	cb: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const DevButton:FunctionComponent<Props> = ({ type, text, cb}) => {
+const DevButton:React.FC<Props> = ({className, type, ...props}) => {
 	return (
 		<button
-			onClick={(e) => cb(e)}
+			{...props}
 			className={`text-sm md:text-base font-bold capitalize text-center px-5 py-[10px] md:px-6 md:py-3  lg:text-lg lg:px-7 lg:py-[14px] rounded-lg ${
 				type == "accent"
 					? "bg-accent-200 hover:bg-accent-100 text-white"
@@ -19,8 +15,8 @@ const DevButton:FunctionComponent<Props> = ({ type, text, cb}) => {
 							? "text-accent-200"
 							: type == "text-secondary"
 								? "text-dark-200 dark:text-light-200"
-								: " "}`}>
-			{text}
+								: " " + className}`}>
+			{props.children}
 		</button>
 	);
 };
