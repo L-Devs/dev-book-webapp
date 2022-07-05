@@ -4,8 +4,13 @@ import DevInput from "../components/DevInput";
 const SignUp: React.FC = () => {
 	return (
 		<>
-			<DevInput title="Hi, Just checking" />
-			<DevButton>Hi its me</DevButton>
+			<DevInput />
+			<div className="flex gap-4 p-4 flex-wrap">
+				<DevButton type="accent">hello</DevButton>
+				<DevButton type="secondary">hello</DevButton>
+				<DevButton type="text-accent">hello</DevButton>
+				<DevButton type="text-secondary">hello</DevButton>
+			</div>
 		</>
 	);
 };
