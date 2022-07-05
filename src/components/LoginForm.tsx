@@ -11,7 +11,7 @@ const LoginForm = () => {
 				<input type="checkbox" className="h-6 w-6" />
 				Remember me
 			</div>
-			<DevButton type="secondary" className="w-3/4 h-[53px]">
+			<DevButton type="secondary" className="w-3/4 h-[53px] font-semibold">
 				Login
 			</DevButton>
 			<div className="text-lg font-normal mt-4">
