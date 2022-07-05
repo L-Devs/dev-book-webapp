@@ -10,8 +10,9 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 const DevInput: React.FC<Props> = ({ className, title, ...props }) => {
 	return (
 		<>
-			{/* this is the label and won't be rendered unless label prop passed */}
-			{title && <label className="mb-2 block">{title}</label>}
+			{/* this is the label and won't be rendered unless TITLE prop passed */}
+			{/* I made some styling changes by making the label not bold and a bit smaller...Psycho */}
+			{title && <label className="mb-2 block font-medium text-lg">{title}</label>}
 			<input
 				{...props}
 				className={

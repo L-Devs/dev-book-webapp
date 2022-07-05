@@ -10,7 +10,9 @@ const Logo = ({ alternate }: Props) => {
 		color = "text-light-100";
 	}
 
-	return <span className={color + " font-righteous text-2xl font-normal"}>LDev</span>;
+	return (
+		<span className={color + " font-righteous text-2xl font-normal"}>LDev</span>
+	);
 };
 
 export default Logo;
