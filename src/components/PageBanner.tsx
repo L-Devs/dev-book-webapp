@@ -14,9 +14,11 @@ const PageBanner = ({ alternate }: Props) => {
 
 	return (
 		<div
-			className={bgColor + " w-1/2 flex justify-center h-screen items-center"}
+			className={
+				bgColor + " w-1/2 flex justify-center min-h-screen items-center"
+			}
 		>
-			<h1 className={textColor + " ml-16 text-7xl text-left leading-normal"}>
+			<h1 className={textColor + " ml-[72px] font-extrabold text-7xl text-left leading-normal"}>
 				<span>
 					Share your Interests, <br></br>Stay
 				</span>

@@ -12,7 +12,9 @@ const DevInput: React.FC<Props> = ({ className, title, ...props }) => {
 		<>
 			{/* this is the label and won't be rendered unless TITLE prop passed */}
 			{/* I made some styling changes by making the label not bold and a bit smaller...Psycho */}
-			{title && <label className="mb-2 block font-medium text-lg">{title}</label>}
+			{title && (
+				<label className="mb-2 block font-medium text-lg">{title}</label>
+			)}
 			<input
 				{...props}
 				className={
