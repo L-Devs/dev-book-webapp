@@ -17,7 +17,7 @@ const DevButton: React.FC<Props> = ({ className, type, ...props }) => {
 	return (
 		<button
 			{...props}
-			className={`text-sm md:text-base font-bold capitalize text-center px-5 py-[10px] md:px-6 md:py-3  lg:text-lg lg:px-7 lg:py-[14px] rounded-lg ${typeStyle} ${className}`}
+			className={`md:text-base capitalize text-center px-5 py-[10px] md:px-6 md:py-3  lg:text-lg lg:px-7 lg:py-[14px] rounded-lg ${typeStyle} ${className}`}
 		>
 			{props.children}
 		</button>
