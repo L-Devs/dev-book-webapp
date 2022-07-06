@@ -1,15 +1,13 @@
-interface Props extends React.HTMLProps<HTMLSpanElement> {
-	type: "accent" | "alternate";
-}
+type Props = React.HTMLProps<HTMLSpanElement>;
 
-const Logo: React.FC<Props> = ({ type, className, ...props }) => {
-	let color = "";
-
-	if (type == "accent") color = "text-accent-200";
-	else if (type == "alternate") color = "text-light-100";
-
+const Logo: React.FC<Props> = ({ className, ...props }) => {
 	return (
-		<span {...props} className={`font-righteous text-2xl font-normal ${color} ${className}`}>LDev</span>
+		<span
+			{...props}
+			className={`font-righteous text-2xl font-normal ${className}`}
+		>
+			LDev
+		</span>
 	);
 };
 
