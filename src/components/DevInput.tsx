@@ -14,9 +14,7 @@ const DevInput: React.FC<Props> = ({ className, title, ...props }) => {
 			{title && <label className="mb-2 block">{title}</label>}
 			<input
 				{...props}
-				className={
-					"bg-light-200 border-0 rounded-lg h-[48px] px-3 block " + className
-				}
+				className={`bg-light-200 border-0 rounded-lg h-[48px] px-3 block ${className}`}
 			></input>
 		</>
 	);
