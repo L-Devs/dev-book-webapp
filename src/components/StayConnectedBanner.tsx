@@ -3,31 +3,22 @@ interface Props extends React.HTMLProps<HTMLDivElement> {
 }
 // Use alternate prop to invert background and text colors depending on the wanted theme
 
-const StayConnectedBanner: React.FC<Props> = ({
-	type,
-	className,
-	...props
-}) => {
-	let typeStyle = "";
-
-	if (type == "accent") {
-		typeStyle = "bg-accent-200 text-light-100";
-	} else {
-		typeStyle = "bg-light-100 text-accent-200";
-	}
-
+const StayConnectedBanner: React.FC<Props> = ({ className, ...props }) => {
 	return (
 		<div
-			className={` w-1/2 flex justify-center min-h-screen items-center ${typeStyle} ${className}`}
+			className={`md:w-1/2 flex justify-center md:min-h-screen items-center bg-light-100 text-accent-200 lg:bg-accent-200 lg:text-light-100 ${className}`}
 			{...props}
 		>
 			<div
-				className={"font-extrabold text-7xl text-left leading-normal  w-2/3"}
+				className={
+					"font-extrabold text-3xl md:text-5xl lg:text-7xl text-left leading-normal w-full md:w-2/3"
+				}
 			>
 				<span>
-					Share Your Interests, <br></br>Stay
+					Share Your <br /> Interests, <br />
+					Stay
 				</span>
-				<span className="w-[477px] bg-dark-200 h-[155px] mt-3 text-center flex items-center justify-center -rotate-[5.2deg] text-light-100">
+				<span className="bg-dark-200 mt-3 text-center flex items-center justify-center -rotate-[5.2deg] text-light-100 w-fit px-2">
 					Connected.
 				</span>
 			</div>
