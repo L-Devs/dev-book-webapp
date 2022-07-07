@@ -1,17 +1,13 @@
-interface Props {
-	alternate?: boolean;
-}
-// Use alternate prop to invert the color depending on the wanted theme
+type Props = React.HTMLProps<HTMLSpanElement>;
 
-const Logo = ({ alternate }: Props) => {
-	let color = "text-accent-200";
-
-	if (alternate) {
-		color = "text-light-100";
-	}
-
+const Logo: React.FC<Props> = ({ className, ...props }) => {
 	return (
-		<span className={color + " font-righteous text-2xl font-normal"}>LDev</span>
+		<span
+			{...props}
+			className={`font-righteous text-2xl font-normal ${className}`}
+		>
+			LDev
+		</span>
 	);
 };
 
