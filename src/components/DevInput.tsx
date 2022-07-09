@@ -12,18 +12,12 @@ interface Props extends React.HTMLProps<HTMLInputElement> {
 // extracting the className so I can use the existing class names
 // and add the passed by the user of the component
 function DevInput({ className, title, formError, touched, ...props }: Props) {
-	const [onError, setOneError] = useState(false);
 
 	//Add error classes when the fields has invalid data
-	const errorClasses = onError
+	const errorClasses = (formError && touched)
 		? "border border-red-500 invalid:border-red-500 focus:outline-none focus:ring focus:ring-red-300"
 		: "";
 
-	// update the state if the field has invalid data
-	useEffect(() => {
-		if (formError && touched) setOneError(true);
-		else setOneError(false);
-	}, [formError]);
 
 	return (
 		<>

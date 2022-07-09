@@ -1,23 +1,23 @@
 interface Props extends React.HTMLProps<HTMLButtonElement> {
-	btnTypes: "accent" | "secondary" | "text-accent" | "text-secondary";
+	devStyle: "accent" | "secondary" | "text-accent" | "text-secondary";
 	type?: "button" | "submit" | "reset" | undefined;
 }
 
 const DevButton: React.FC<Props> = ({
 	className,
-	btnTypes,
+	devStyle,
 	children,
 	...props
 }) => {
 	let typeStyle = "";
 
-	if (btnTypes == "accent")
+	if (devStyle == "accent")
 		typeStyle = "bg-accent-200 hover:bg-accent-100 text-white";
-	else if (btnTypes == "secondary")
+	else if (devStyle == "secondary")
 		typeStyle =
 			"bg-dark-200 hover:bg-dark-100 text-white dark:bg-light-100 dark:hover:bg-light-200 dark:text-dark-200";
-	else if (btnTypes == "text-accent") typeStyle = "text-accent-200";
-	else if (btnTypes == "text-secondary")
+	else if (devStyle == "text-accent") typeStyle = "text-accent-200";
+	else if (devStyle == "text-secondary")
 		typeStyle = "text-dark-200 dark:text-light-200";
 
 	return (

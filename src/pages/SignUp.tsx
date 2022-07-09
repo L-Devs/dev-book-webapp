@@ -97,7 +97,7 @@ const SignUp: React.FC = () => {
 								</div>
 
 								<DevButton
-									btnTypes="secondary"
+									devStyle="secondary"
 									type="submit"
 									className="w-full mt-8 md:w-9/12 2xl:w-6/12"
 								>
