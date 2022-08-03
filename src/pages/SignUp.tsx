@@ -5,15 +5,16 @@ import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { ErrorMessage, Form, Formik } from "formik";
+import { DevCheckBox } from "../components/DevCheckBox";
 
 interface InitialValues {
 	userName: string;
 	emailAddress: string;
 	password: string;
+	terms: boolean;
 	confirmPassword: string;
 }
 const SignUp: React.FC = () => {
-
 	//Yup Object Schema
 	const SignupSchema = Yup.object().shape({
 		userName: Yup.string()
@@ -22,6 +23,10 @@ const SignUp: React.FC = () => {
 			.required("Required"),
 		emailAddress: Yup.string().email("Invalid email").required("Required"),
 		password: Yup.string().required("Password is required"),
+		terms: Yup.boolean().oneOf(
+			[true],
+			"you need to agree with our terms and conditions to continue"
+		),
 		confirmPassword: Yup.string().oneOf(
 			[Yup.ref("password")],
 			"Both password need to be the same"
@@ -33,6 +38,7 @@ const SignUp: React.FC = () => {
 		userName: "",
 		emailAddress: "",
 		password: "",
+		terms: false,
 		confirmPassword: "",
 	};
 
@@ -51,7 +57,7 @@ const SignUp: React.FC = () => {
 				>
 					{({ errors, touched }) => {
 						return (
-							<Form className="flex flex-col gap-1 pb-2">
+							<Form className="flex flex-col space-y-3 pb-2">
 								<h2 className="font-bold mb-4 capitalize text-dark-200 text-xl">
 									Sign up
 								</h2>
@@ -62,7 +68,7 @@ const SignUp: React.FC = () => {
 										formError={errors.userName}
 										touched={touched.userName}
 										type="text"
-										className="mb-3 w-full md:w-9/12 2xl:w-6/12 text-dark-200"
+										className="w-full md:w-9/12 2xl:w-6/12 text-dark-200"
 									/>
 								</div>
 								<div className="">
@@ -72,7 +78,7 @@ const SignUp: React.FC = () => {
 										formError={errors.emailAddress}
 										touched={touched.emailAddress}
 										type="email"
-										className="mb-3 w-full md:w-9/12 2xl:w-6/12 text-dark-200"
+										className="w-full md:w-9/12 2xl:w-6/12 text-dark-200"
 									/>
 								</div>
 								<div className="">
@@ -82,7 +88,7 @@ const SignUp: React.FC = () => {
 										type="password"
 										formError={errors.password}
 										touched={touched.password}
-										className="mb-3 w-full md:w-9/12 2xl:w-6/12 text-dark-200"
+										className="w-full md:w-9/12 2xl:w-6/12 text-dark-200"
 									/>
 								</div>
 								<div className="">
@@ -93,6 +99,16 @@ const SignUp: React.FC = () => {
 										formError={errors.confirmPassword}
 										touched={touched.confirmPassword}
 										className="w-full md:w-9/12 2xl:w-6/12 text-dark-200"
+									/>
+								</div>
+								<div className="">
+									<DevCheckBox
+										content="agree to terms and conditions"
+										name="terms"
+										type="checkbox"
+										formError={errors.terms}
+										touched={errors.terms}
+										className="accent-accent-200"
 									/>
 								</div>
 
