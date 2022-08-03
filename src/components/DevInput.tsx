@@ -25,7 +25,7 @@ function DevInput({ className, title, formError, touched, ...props }: Props) {
 			{title && <label className="mb-1 block font-medium">{title}</label>}
 			<Field
 				{...props}
-				className={`bg-light-200 border-0  rounded-lg px-4 py-2 md:px-5 md:py-3  lg:px-6 lg:py-3 block${className} ${errorClasses}`}
+				className={`bg-light-200 border-0  rounded-lg px-4 py-2 md:px-5 md:py-3  lg:px-6 lg:py-3 block ${className} ${errorClasses}`}
 			/>
 
 			{/* Here is you can display field's error message */}
