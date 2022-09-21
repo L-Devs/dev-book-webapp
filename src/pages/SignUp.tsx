@@ -4,7 +4,7 @@ import StayConnectedBanner from "../components/StayConnectedBanner";
 import Logo from "../components/Logo";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import { ErrorMessage, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { DevCheckBox } from "../components/DevCheckBox";
 
 interface InitialValues {
