@@ -2,7 +2,7 @@ import StayConnectedBanner from "../components/StayConnectedBanner";
 import Logo from "../components/Logo";
 import DevInput from "../components/DevInput";
 import DevButton from "../components/DevButton";
-import { ErrorMessage, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 
