@@ -1,3 +1,4 @@
+import { useState } from "react";
 import StayConnectedBanner from "../components/StayConnectedBanner";
 import Logo from "../components/Logo";
 import DevInput from "../components/DevInput";
@@ -6,8 +7,6 @@ import { Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import axios from "axios";
-
-
 
 interface InitialValues {
 	emailAddress: string;
@@ -19,6 +18,8 @@ interface SubmitObject {
 }
 
 const Login: React.FC = () => {
+	const [errorState, setErrorState] = useState("");
+
 	const SignupSchema = Yup.object().shape({
 		emailAddress: Yup.string().email("Invalid email").required("Required"),
 		password: Yup.string().required("Password is required"),
@@ -31,21 +32,21 @@ const Login: React.FC = () => {
 	};
 
 	const submitLoginRequest = (submitObject: object) => {
-		console.log("posting..");
-		
+		console.log("posting...");
+
 		console.log(submitObject);
 
 		axios
-			.post("http://127.0.0.1:8000/login/", 
-				submitObject,
-			)
+			.post("http://127.0.0.1:8000/login", submitObject, { withCredentials: true })
 			.then(function (response) {
-				localStorage.setItem("sessionToken", response.data.token);
-
-				console.log("posted sucessfully");
+				console.log(response);
+				setErrorState("");
+				// Cookie stuff maybe?
+				// TODO: redirect to home & remove console logs
 			})
 			.catch(function (error) {
 				console.log(error);
+				setErrorState(error.response.data.message);
 			});
 	};
 
@@ -72,6 +73,7 @@ const Login: React.FC = () => {
 								<h2 className="font-bold mb-4 capitalize text-dark-200 text-xl">
 									Login
 								</h2>
+								{errorState && <div className="text-red-500">{errorState}</div>}
 								<DevInput
 									title="Email Address"
 									name="emailAddress"
