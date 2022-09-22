@@ -40,9 +40,11 @@ const Login: React.FC = () => {
 				submitObject,
 			)
 			.then(function (response) {
-				localStorage.setItem("sessionToken", response.data.token);
-
-				console.log("posted sucessfully");
+				if (response.data.status == "Success") {
+					
+					localStorage.setItem("sessionToken", response.data.token);
+				}
+				console.log("response");
 			})
 			.catch(function (error) {
 				console.log(error);
