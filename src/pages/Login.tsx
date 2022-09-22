@@ -5,9 +5,16 @@ import DevButton from "../components/DevButton";
 import { Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
+import axios from "axios";
+
+
 
 interface InitialValues {
 	emailAddress: string;
+	password: string;
+}
+interface SubmitObject {
+	email: string;
 	password: string;
 }
 
@@ -23,6 +30,25 @@ const Login: React.FC = () => {
 		password: "",
 	};
 
+	const submitLoginRequest = (submitObject: object) => {
+		console.log("posting..");
+		
+		console.log(submitObject);
+
+		axios
+			.post("http://127.0.0.1:8000/login/", 
+				submitObject,
+			)
+			.then(function (response) {
+				localStorage.setItem("sessionToken", response.data.token);
+
+				console.log("posted sucessfully");
+			})
+			.catch(function (error) {
+				console.log(error);
+			});
+	};
+
 	return (
 		<div className="p-5 md:p-0 flex flex-col bg-light-100 min-h-screen md:flex-row">
 			<Logo className="mb-10 md:hidden text-accent-200" />
@@ -33,7 +59,11 @@ const Login: React.FC = () => {
 					initialValues={initialValues}
 					validationSchema={SignupSchema}
 					onSubmit={(values) => {
-						console.log(values);
+						const submitObject: SubmitObject = {
+							email: values.emailAddress,
+							password: values.password,
+						};
+						submitLoginRequest(submitObject);
 					}}
 				>
 					{({ errors, touched }) => {
