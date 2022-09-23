@@ -54,21 +54,18 @@ const SignUp: React.FC = () => {
 			password: values.password,
 			username: values.userName,
 		};
+		console.log("posting...");
 		console.log(dataObj);
 		Axios.post("http://127.0.0.1:8000/signup", dataObj)
 			.then(function (response) {
 				console.log(response);
-				// TODO: remind okkio to use status codes instead of data.status
-				if (response.data.status == "Success") {
-					setErrorState("");
-					localStorage.setItem("sessionToken", response.data.token);
-					// TODO: redirect to home & remove console logs
-				} else {
-					setErrorState(response.data.description);
-				}
+				setErrorState("");
+				// Cookie stuff maybe?
+				// TODO: redirect to home & remove console logs
 			})
 			.catch(function (error) {
-				setErrorState(error);
+				console.log(error);
+				setErrorState(error.response.data.message);
 			});
 	};
 
@@ -82,7 +79,6 @@ const SignUp: React.FC = () => {
 					initialValues={initialValues}
 					validationSchema={SignupSchema}
 					onSubmit={(values) => {
-						console.log(values);
 						submitHandler(values);
 					}}
 				>
