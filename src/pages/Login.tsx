@@ -6,14 +6,10 @@ import DevButton from "../components/DevButton";
 import { Form, Formik } from "formik";
 import { Link } from "react-router-dom";
 import * as Yup from "yup";
-import axios from "axios";
+import Axios from "axios";
 
 interface InitialValues {
 	emailAddress: string;
-	password: string;
-}
-interface SubmitObject {
-	email: string;
 	password: string;
 }
 
@@ -31,15 +27,17 @@ const Login: React.FC = () => {
 		password: "",
 	};
 
-	const submitLoginRequest = (submitObject: object) => {
+	const submitHandler = (values: InitialValues) => {
+		
+		const submitObject = {
+			email: values.emailAddress,
+			password: values.password,
+		};
 		console.log("posting...");
-
 		console.log(submitObject);
-
-		axios
-			.post("http://127.0.0.1:8000/login", submitObject, {
-				withCredentials: true,
-			})
+		Axios.post("http://127.0.0.1:8000/login", submitObject, {
+			withCredentials: true,
+		})
 			.then(function (response) {
 				console.log(response);
 				setErrorState("");
@@ -62,11 +60,7 @@ const Login: React.FC = () => {
 					initialValues={initialValues}
 					validationSchema={SignupSchema}
 					onSubmit={(values) => {
-						const submitObject: SubmitObject = {
-							email: values.emailAddress,
-							password: values.password,
-						};
-						submitLoginRequest(submitObject);
+						submitHandler(values);
 					}}
 				>
 					{({ errors, touched }) => {
