@@ -56,7 +56,9 @@ const SignUp: React.FC = () => {
 		};
 		console.log("posting...");
 		console.log(dataObj);
-		Axios.post("http://127.0.0.1:8000/signup", dataObj)
+		Axios.post("http://127.0.0.1:8000/signup", dataObj, {
+			withCredentials: true,
+		})
 			.then(function (response) {
 				console.log(response);
 				setErrorState("");
