@@ -1,3 +1,4 @@
+import { useState } from "react";
 import DevButton from "../components/DevButton";
 import DevInput from "../components/DevInput";
 import StayConnectedBanner from "../components/StayConnectedBanner";
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import { DevCheckBox } from "../components/DevCheckBox";
+import Axios from "axios";
 
 interface InitialValues {
 	userName: string;
@@ -14,7 +16,10 @@ interface InitialValues {
 	terms: boolean;
 	confirmPassword: string;
 }
+
 const SignUp: React.FC = () => {
+	const [errorState, setErrorState] = useState("");
+
 	//Yup Object Schema
 	const SignupSchema = Yup.object().shape({
 		userName: Yup.string()
@@ -42,6 +47,30 @@ const SignUp: React.FC = () => {
 		confirmPassword: "",
 	};
 
+	// submitHandler to submit data to api
+	const submitHandler = (values: InitialValues) => {
+		const dataObj = {
+			email: values.emailAddress,
+			password: values.password,
+			username: values.userName,
+		};
+		console.log("posting...");
+		console.log(dataObj);
+		Axios.post("http://127.0.0.1:8000/signup", dataObj, {
+			withCredentials: true,
+		})
+			.then(function (response) {
+				console.log(response);
+				setErrorState("");
+				// Cookie stuff maybe?
+				// TODO: redirect to home & remove console logs
+			})
+			.catch(function (error) {
+				console.log(error);
+				setErrorState(error.response.data.message);
+			});
+	};
+
 	return (
 		<div className="p-5 md:p-0 flex flex-col bg-light-100 min-h-screen md:flex-row">
 			<Logo className="mb-10 md:hidden text-accent-200" />
@@ -52,7 +81,7 @@ const SignUp: React.FC = () => {
 					initialValues={initialValues}
 					validationSchema={SignupSchema}
 					onSubmit={(values) => {
-						console.log(values);
+						submitHandler(values);
 					}}
 				>
 					{({ errors, touched }) => {
@@ -61,6 +90,7 @@ const SignUp: React.FC = () => {
 								<h2 className="font-bold mb-4 capitalize text-dark-200 text-xl">
 									Sign up
 								</h2>
+								{errorState && <div className="text-red-500">{errorState}</div>}
 								<div className="">
 									<DevInput
 										title="User Name"
