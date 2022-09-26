@@ -61,7 +61,7 @@ const Login: React.FC = () => {
 			<Logo className="mb-10 md:hidden text-accent-200" />
 			<StayConnectedBanner type="accent" className="mb-20 md:mb-0 md:w-1/2" />
 			<div className="md:w-1/2 md:pl-20 text-dark-200">
-				<Logo className="my-2 md:my-20 mx-auto hidden md:block lg:text-accent-200" />
+				<Logo className="my-2 lg:my-4 xl:my-8 mx-auto hidden md:block text-accent-200" />
 				<Formik
 					initialValues={initialValues}
 					validationSchema={SignupSchema}

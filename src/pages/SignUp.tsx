@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DevButton from "../components/DevButton";
 import DevInput from "../components/DevInput";
 import StayConnectedBanner from "../components/StayConnectedBanner";
@@ -19,6 +20,8 @@ interface InitialValues {
 
 const SignUp: React.FC = () => {
 	const [errorState, setErrorState] = useState("");
+
+	const navigate = useNavigate();
 
 	//Yup Object Schema
 	const SignupSchema = Yup.object().shape({
@@ -47,6 +50,8 @@ const SignUp: React.FC = () => {
 		confirmPassword: "",
 	};
 
+	// TODO: PUT URLS IN .ENV ONCE API IS ONLINE
+
 	// submitHandler to submit data to api
 	const submitHandler = (values: InitialValues) => {
 		// Animate loading button?
@@ -65,7 +70,9 @@ const SignUp: React.FC = () => {
 				console.log(response);
 				setErrorState("");
 				// Cookie stuff maybe?
-				// TODO: redirect to home & remove console logs
+				// TODO: Save userId somewhere
+				navigate("/Profile");
+				// TODO: Remove console logs
 			})
 			.catch(function (error) {
 				console.log(error);
