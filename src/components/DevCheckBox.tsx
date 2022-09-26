@@ -4,7 +4,7 @@ import { Field } from "formik";
 interface Props extends React.HTMLProps<HTMLInputElement> {
 	content: string;
 	formError?: string | undefined;
-	touched?: string | undefined;
+	touched?: boolean | undefined;
 }
 
 export const DevCheckBox = ({
