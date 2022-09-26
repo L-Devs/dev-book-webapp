@@ -49,6 +49,8 @@ const SignUp: React.FC = () => {
 
 	// submitHandler to submit data to api
 	const submitHandler = (values: InitialValues) => {
+		// Animate loading button?
+
 		const dataObj = {
 			email: values.emailAddress,
 			password: values.password,
@@ -67,7 +69,11 @@ const SignUp: React.FC = () => {
 			})
 			.catch(function (error) {
 				console.log(error);
-				setErrorState(error.response.data.message);
+				if (error.response.data) {
+					setErrorState(error.response.data.message);
+				} else {
+					setErrorState(error.message);
+				}
 			});
 	};
 
@@ -137,7 +143,7 @@ const SignUp: React.FC = () => {
 										name="terms"
 										type="checkbox"
 										formError={errors.terms}
-										touched={errors.terms}
+										touched={touched.terms}
 										className="accent-accent-200"
 									/>
 								</div>

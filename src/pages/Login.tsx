@@ -28,13 +28,15 @@ const Login: React.FC = () => {
 	};
 
 	const submitHandler = (values: InitialValues) => {
-		
+		// Animate loading button?
+
 		const submitObject = {
 			email: values.emailAddress,
 			password: values.password,
 		};
 		console.log("posting...");
 		console.log(submitObject);
+		setErrorState("");
 		Axios.post("http://127.0.0.1:8000/login", submitObject, {
 			withCredentials: true,
 		})
@@ -42,11 +44,15 @@ const Login: React.FC = () => {
 				console.log(response);
 				setErrorState("");
 				// Cookie stuff maybe?
-				// TODO: redirect to home & remove console logs
+				// TODO: Redirect to home & remove console logs
 			})
 			.catch(function (error) {
 				console.log(error);
-				setErrorState(error.response.data.message);
+				if (error.response.data) {
+					setErrorState(error.response.data.message);
+				} else {
+					setErrorState(error.message);
+				}
 			});
 	};
 
