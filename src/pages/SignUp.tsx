@@ -61,6 +61,7 @@ const SignUp: React.FC = () => {
 			password: values.password,
 			username: values.userName,
 		};
+		// TODO: Remove console logs
 		console.log("posting...");
 		console.log(dataObj);
 		Axios.post("http://127.0.0.1:8000/signup", dataObj, {
@@ -69,10 +70,8 @@ const SignUp: React.FC = () => {
 			.then(function (response) {
 				console.log(response);
 				setErrorState("");
-				// Cookie stuff maybe?
 				// TODO: Save userId somewhere
-				navigate("/Profile");
-				// TODO: Remove console logs
+				navigate("/profile");
 			})
 			.catch(function (error) {
 				console.log(error);

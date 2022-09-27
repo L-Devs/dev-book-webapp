@@ -4,7 +4,7 @@ import Logo from "../components/Logo";
 import DevInput from "../components/DevInput";
 import DevButton from "../components/DevButton";
 import { Form, Formik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import Axios from "axios";
 
@@ -15,6 +15,7 @@ interface InitialValues {
 
 const Login: React.FC = () => {
 	const [errorState, setErrorState] = useState("");
+	const navigate = useNavigate();
 
 	const SignupSchema = Yup.object().shape({
 		emailAddress: Yup.string().email("Invalid email").required("Required"),
@@ -27,6 +28,7 @@ const Login: React.FC = () => {
 		password: "",
 	};
 
+	// TODO: Remove console.logs
 	const submitHandler = (values: InitialValues) => {
 		// Animate loading button?
 
@@ -43,8 +45,7 @@ const Login: React.FC = () => {
 			.then(function (response) {
 				console.log(response);
 				setErrorState("");
-				// Cookie stuff maybe?
-				// TODO: Redirect to home & remove console logs
+				navigate("/");
 			})
 			.catch(function (error) {
 				console.log(error);
