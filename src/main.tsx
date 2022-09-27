@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./style/index.css";
 
+import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
@@ -15,7 +16,7 @@ if (root) {
 		<React.StrictMode>
 			<BrowserRouter>
 				<Routes>
-					<Route path="/" element={<SignUp />}></Route>
+					<Route path="/" element={<Home />}></Route>
 					<Route path="/signup" element={<SignUp />}></Route>
 					<Route path="/profile" element={<Profile />}></Route>
 					<Route path="/login" element={<Login />}></Route>
