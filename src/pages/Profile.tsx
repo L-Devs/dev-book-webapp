@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import "yup-phone";
 import Axios from "axios";
@@ -6,19 +7,31 @@ import { Form, Formik } from "formik";
 import DevInput from "../components/DevInput";
 import DevButton from "../components/DevButton";
 import DevSelect from "../components/DevSelect";
+import country from "country-list-js";
 
 interface ProfileInitialValues {
 	userId: number;
 	firstName: string;
 	lastName: string;
-	birthDate: Date;
-	gender: "m" | "f";
+	birthDate: string;
+	gender: "M" | "F";
 	phoneNumber: string;
 	country: string;
 }
 
 const Profile = () => {
 	const [errorState, setErrorState] = useState("");
+	const navigate = useNavigate();
+
+	// Map list of countries array as { name, value }
+	const listOfCountries = country.names().map((e: string) => {
+		return { name: e, value: country.findByName(e).code.iso2 };
+	});
+	// Sort list of countries
+	listOfCountries.sort(
+		(a: { name: string; value: string }, b: { name: string; value: string }) =>
+			a.name > b.name ? 1 : a.name < b.name ? -1 : 0
+	);
 
 	// Profile schema for Yup
 	const ProfileSchema = Yup.object().shape({
@@ -31,33 +44,32 @@ const Profile = () => {
 			.min(2, "Too Short!")
 			.max(50, "Too Long!")
 			.required("Required"),
-		birthDate: Yup.date().required("Required"),
+		birthDate: Yup.date().required("Required").max(new Date(), "Invalid"),
 		gender: Yup.string().length(1, "Must be 1 character").required("Required"),
 		phoneNumber: Yup.string()
-			.phone("", false, "Invalid phone number")
-			.required("Required"),
+			.required("Required")
+			.phone("", false, "Invalid phone number"),
 		country: Yup.string().required("Required"),
 	});
 
 	// TODO: Need to get userId from signup post request first
 	// Profile initial values
 	const profileInitialValues: ProfileInitialValues = {
-		userId: 0,
+		userId: Math.floor(Math.random() * 1000),
 		firstName: "",
 		lastName: "",
-		birthDate: new Date(),
-		gender: "m",
+		birthDate: new Date().toJSON().substring(0, 10),
+		gender: "M",
 		phoneNumber: "",
-		country: "",
+		country: "AF",
 	};
-	console.log(profileInitialValues.birthDate);
 
 	// Submit userprofile to api
 	const profileSubmitHandler = (values: ProfileInitialValues) => {
 		// Animate loading button?
 
 		const dataObj = {
-			userId: values.userId,
+			userId: Math.floor(Math.random() * 1000),
 			firstName: values.firstName,
 			lastName: values.lastName,
 			birthDate: values.birthDate,
@@ -65,16 +77,16 @@ const Profile = () => {
 			phoneNumber: values.phoneNumber,
 			country: values.country,
 		};
+		// TODO: Remove console logs
 		console.log("posting...");
 		console.log(dataObj);
-		Axios.post("http://127.0.0.1:8000/userprofile", dataObj, {
+		Axios.post("http://127.0.0.1:8000/userProfile/setupProfile", dataObj, {
 			withCredentials: true,
 		})
 			.then(function (response) {
 				console.log(response);
 				setErrorState("");
-				// Cookie stuff maybe?
-				// TODO: Redirect to home & remove console logs
+				navigate("/");
 			})
 			.catch(function (error) {
 				console.log(error);
@@ -85,6 +97,7 @@ const Profile = () => {
 				}
 			});
 	};
+
 	return (
 		<Formik
 			initialValues={profileInitialValues}
@@ -125,6 +138,10 @@ const Profile = () => {
 								title="Birth Date"
 								name="birthDate"
 								type="date"
+								formError={
+									typeof errors.birthDate == "string" ? errors.birthDate : ""
+								}
+								touched={touched.birthDate == true}
 								className="w-full md:w-9/12 2xl:w-6/12 text-dark-200"
 							/>
 						</div>
@@ -137,8 +154,8 @@ const Profile = () => {
 								touched={touched.gender}
 								className="w-full md:w-9/12 2xl:w-6/12 text-dark-200"
 								options={[
-									{ name: "Male", value: "m" },
-									{ name: "Female", value: "f" },
+									{ name: "Male", value: "M" },
+									{ name: "Female", value: "F" },
 								]}
 							/>
 						</div>
@@ -160,12 +177,7 @@ const Profile = () => {
 								formError={errors.country}
 								touched={touched.country}
 								className="w-full md:w-9/12 2xl:w-6/12 text-dark-200"
-								options={[
-									{ name: "Sudan", value: "SU" },
-									{ name: "United Stated of America", value: "US" },
-									{ name: "United Kingdom", value: "UK" },
-									{ name: "Oman", value: "OM" },
-								]}
+								options={listOfCountries}
 							/>
 						</div>
 						<DevButton
