@@ -10,7 +10,6 @@ import DevSelect from "../components/DevSelect";
 import country from "country-list-js";
 
 interface ProfileInitialValues {
-	userId: number;
 	firstName: string;
 	lastName: string;
 	birthDate: string;
@@ -23,9 +22,9 @@ const Profile = () => {
 	const [errorState, setErrorState] = useState("");
 	const navigate = useNavigate();
 
-	// Map list of countries array as { name, value }
+	// Map list of countries array as { name, value } (value = "xx" if not found, unlikely)
 	const listOfCountries = country.names().map((e: string) => {
-		return { name: e, value: country.findByName(e).code.iso2 };
+		return { name: e, value: country.findByName(e)?.code.iso2 || "xx" };
 	});
 	// Sort list of countries
 	listOfCountries.sort(
@@ -35,7 +34,6 @@ const Profile = () => {
 
 	// Profile schema for Yup
 	const ProfileSchema = Yup.object().shape({
-		userId: Yup.number().required("Required"),
 		firstName: Yup.string()
 			.min(2, "Too Short!")
 			.max(50, "Too Long!")
@@ -52,10 +50,8 @@ const Profile = () => {
 		country: Yup.string().required("Required"),
 	});
 
-	// TODO: Need to get userId from signup post request first
 	// Profile initial values
 	const profileInitialValues: ProfileInitialValues = {
-		userId: Math.floor(Math.random() * 1000),
 		firstName: "",
 		lastName: "",
 		birthDate: new Date().toJSON().substring(0, 10),
@@ -69,7 +65,6 @@ const Profile = () => {
 		// Animate loading button?
 
 		const dataObj = {
-			userId: Math.floor(Math.random() * 1000),
 			firstName: values.firstName,
 			lastName: values.lastName,
 			birthDate: values.birthDate,

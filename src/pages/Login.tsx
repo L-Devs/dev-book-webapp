@@ -22,20 +22,21 @@ const Login: React.FC = () => {
 		password: Yup.string().required("Password is required"),
 	});
 
-	//Form Fields initial values
+	// Form Fields initial values
 	const initialValues: InitialValues = {
 		emailAddress: "",
 		password: "",
 	};
 
-	// TODO: Remove console.logs
+	// Submit login to api
 	const submitHandler = (values: InitialValues) => {
-		// Animate loading button?
+		// TODO: Animate loading button
 
 		const submitObject = {
 			email: values.emailAddress,
 			password: values.password,
 		};
+		// TODO: Remove console.logs
 		console.log("posting...");
 		console.log(submitObject);
 		setErrorState("");

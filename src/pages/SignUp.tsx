@@ -54,7 +54,7 @@ const SignUp: React.FC = () => {
 
 	// submitHandler to submit data to api
 	const submitHandler = (values: InitialValues) => {
-		// Animate loading button?
+		// TODO: Animate loading button
 
 		const dataObj = {
 			email: values.emailAddress,
@@ -70,7 +70,6 @@ const SignUp: React.FC = () => {
 			.then(function (response) {
 				console.log(response);
 				setErrorState("");
-				// TODO: Save userId somewhere
 				navigate("/profile");
 			})
 			.catch(function (error) {
